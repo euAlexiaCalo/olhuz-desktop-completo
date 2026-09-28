@@ -1,0 +1,22 @@
+# Visual Studio / .NET Core / MSBuild
+[Bb]in/
+[Oo]bj/
+.vs/
+*.user
+*.userosscache
+*.suo
+.user
+x64/
+x86/
+[Bb]uild/
+[Ll]ogs/
+[Uu]serSecrets/
+
+# Dependências e pacotes NuGet
+packages/
+*.nupkg
+project.lock.json
+
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
