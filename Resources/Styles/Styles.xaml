@@ -126,6 +126,7 @@
         <Setter Property="VerticalOptions" Value="Center" />
         <Setter Property="HorizontalOptions" Value="Center" />
         <Setter Property="Shadow" Value="0 0 8 Transparent 0.2" />
+        <Setter Property="BackgroundColor" Value="{StaticResource FiveBlue}" />
         <Setter Property="Padding" Value="16" />
         <Setter Property="WidthRequest" Value="180" />
         <Setter Property="HeightRequest" Value="60" />
@@ -135,11 +136,7 @@
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
 
-                    <VisualState x:Name="Normal">
-                        <VisualState.Setters>
-                            <Setter Property="BackgroundColor" Value="{StaticResource FiveBlue}" />
-                        </VisualState.Setters>
-                    </VisualState>
+                    <VisualState x:Name="Normal" />
 
                     <VisualState x:Name="PointerOver">
                         <VisualState.Setters>
