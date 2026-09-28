@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="olhuz_desktop_completo.Components.FormButton"
+             x:Name="Root">
+
+    <Grid BindingContext="{x:Reference Root}">
+
+        <Button Text="{Binding Text}"
+                BackgroundColor="{Binding ButtonColor}"
+                Command="{Binding Command}"
+                IsVisible="{Binding IsLoading, Converter={StaticResource InvertedBoolConverter}}"
+                Style="{StaticResource PrimaryButtonStyle}" />
+
+        <ActivityIndicator IsRunning="{Binding IsLoading}"
+                           IsVisible="{Binding IsLoading}"
+                           Color="Blue"
+                           WidthRequest="25"
+                           HeightRequest="25"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center" />
+
+    </Grid>
+
+</ContentView>
