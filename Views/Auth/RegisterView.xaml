@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:components="clr-namespace:olhuz_desktop_completo.Components"
+             x:Class="olhuz_desktop_completo.Views.Auth.RegisterView"
+             Shell.FlyoutBehavior="Disabled">
+
+    <Grid ColumnDefinitions="*,*">
+        <!-- Coluna Esquerda -->
+        <Grid Grid.Column="0" BackgroundColor="White">
+            <components:BackButton BackCommand="{Binding BackCommand}" />
+            <VerticalStackLayout Style="{StaticResource WelcomePanelStyle}">
+                <Image Style="{StaticResource AuthScreenLogoStyle}"/>
+                <Label Text="Bem-Vindo&#x0a;ao Olhuz" Style="{StaticResource HeaderLabelStyle}"/>
+            </VerticalStackLayout>
+        </Grid>
+
+        <!-- Coluna Direita (Formulário) -->
+        <Grid Grid.Column="1">
+            <ScrollView>
+                <Border Style="{StaticResource AuthFormContainerBorderStyle}">
+                    <VerticalStackLayout Spacing="16">
+                        <Label Text="Cadastre-se" Style="{StaticResource FormLabelStyle}"/>
+
+                        <components:CustomEntry LabelText="Nome completo" Placeholder="Digite seu nome" Text="{Binding FullName}" />
+                        <components:CustomEntry LabelText="CPF" Placeholder="Digite seu CPF (apenas números)" KeyboardType="Numeric" MaxLength="11" Text="{Binding Cpf}" />
+
+                        <!-- Data de Nascimento -->
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="Data de nascimento" Style="{StaticResource FieldLabelStyle}"/>
+                            <Border Style="{StaticResource FormDatePickerBorderStyle}">
+                                <DatePicker Date="{Binding BirthDate}" Format="dd/MM/yyyy" Style="{StaticResource FormDatePickerStyle}"/>
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <components:CustomEntry LabelText="Telefone" Placeholder="DDD + Número" KeyboardType="Telephone" MaxLength="15" Text="{Binding PhoneNumber}" />
+                        <components:CustomEntry LabelText="E-mail" Placeholder="Digite seu email" KeyboardType="Email" Text="{Binding Email}" />
+
+                        <!-- Senha -->
+                        <VerticalStackLayout Spacing="8">
+                            <components:PasswordEntry LabelText="Senha" Placeholder="Digite sua senha" Text="{Binding Password}" />
+
+                            <HorizontalStackLayout Spacing="8" Margin="16,8,0,0">
+                                <BoxView Color="{Binding Bar1Color}" WidthRequest="60" HeightRequest="5" CornerRadius="2"/>
+                                <BoxView Color="{Binding Bar2Color}" WidthRequest="60" HeightRequest="5" CornerRadius="2"/>
+                                <BoxView Color="{Binding Bar3Color}" WidthRequest="60" HeightRequest="5" CornerRadius="2"/>
+                                <BoxView Color="{Binding Bar4Color}" WidthRequest="60" HeightRequest="5" CornerRadius="2"/>
+                            </HorizontalStackLayout>
+                            <Label Text="{Binding StrengthText}" FontSize="12" TextColor="Gray" Margin="24,0,0,0" />
+                        </VerticalStackLayout>
+
+                        <!-- Confirmar Senha -->
+                        <components:PasswordEntry LabelText="Confirmar senha" Placeholder="Confirme sua senha" Text="{Binding ConfirmPassword}" />
+
+                        <!-- CheckBox Termos -->
+                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="0" HorizontalOptions="Center" VerticalOptions="Center" MaximumWidthRequest="400">
+                            <CheckBox IsChecked="{Binding IsTermsAccepted}" Grid.Column="0"/>
+                            <Label Grid.Column="1" LineBreakMode="WordWrap" VerticalTextAlignment="Center">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span FontSize="16" Text="Ao continuar, você concorda com os " TextColor="Black"/>
+                                        <Span FontSize="16" Text="Termos de Uso" TextDecorations="Underline" TextColor="Blue">
+                                            <Span.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding OpenTermsCommand}"/>
+                                            </Span.GestureRecognizers>
+                                        </Span>
+                                        <Span FontSize="16" Text=" e a " TextColor="Black"/>
+                                        <Span FontSize="16" Text="Política de Privacidade" TextDecorations="Underline" TextColor="Blue">
+                                            <Span.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding OpenPrivacyCommand}"/>
+                                            </Span.GestureRecognizers>
+                                        </Span>
+                                        <Span FontSize="16" Text=", conforme a LGPD." TextColor="Black"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </Grid>
+
+                        <components:FormButton Text="Cadastrar" 
+                                               Command="{Binding RegisterCommand}" 
+                                               IsLoading="{Binding IsLoading}" />
+
+                    </VerticalStackLayout>
+                </Border>
+            </ScrollView>
+        </Grid>
+    </Grid>
+</ContentPage>

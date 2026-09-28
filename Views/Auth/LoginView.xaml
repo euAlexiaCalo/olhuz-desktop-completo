@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:components="clr-namespace:olhuz_desktop_completo.Components"
+             x:Class="olhuz_desktop_completo.Views.Auth.LoginView"
+             Shell.FlyoutBehavior="Disabled">
+
+    <Grid ColumnDefinitions="*,*" Style="{StaticResource ContainerGridStyle}">
+        <!-- Coluna Esquerda -->
+        <Grid Grid.Column="0" BackgroundColor="White">
+            <components:BackButton BackCommand="{Binding BackCommand}" />
+            <VerticalStackLayout Style="{StaticResource WelcomePanelStyle}">
+                <Image Style="{StaticResource AuthScreenLogoStyle}"/>
+                <Label Text="Bem-Vindo&#x0a;novamente ao olhuz" Style="{StaticResource HeaderLabelStyle}"/>
+            </VerticalStackLayout>
+        </Grid>
+
+        <!-- Coluna Direita -->
+        <Grid Grid.Column="1">
+            <Border Style="{StaticResource AuthFormContainerBorderStyle}">
+                <VerticalStackLayout Spacing="16">
+                    <Label Text="Acesse sua Conta" Style="{StaticResource FormLabelStyle}"/>
+
+                    <!-- Campo de E-mail com DataBinding -->
+                    <components:CustomEntry LabelText="E-mail" 
+                                            Placeholder="Digite seu email" 
+                                            KeyboardType="Email"
+                                            Text="{Binding Email}" />
+
+                    <!-- Campo de Senha com DataBinding -->
+                    <VerticalStackLayout Spacing="8">
+                        <components:PasswordEntry LabelText="Senha" 
+                                                  Placeholder="Digite sua senha"
+                                                  Text="{Binding Password}" />
+
+                        <Label Text="Redefinir senha" Style="{StaticResource LinkTextStyle}" HorizontalOptions="End">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </VerticalStackLayout>
+
+                    <!-- Botão de Formulário -->
+                    <components:FormButton Text="Entrar"
+                                           Command="{Binding LoginCommand}"
+                                           IsLoading="{Binding IsLoading}" />
+
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+    </Grid>
+</ContentPage>

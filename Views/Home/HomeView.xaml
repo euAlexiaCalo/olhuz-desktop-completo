@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:components="clr-namespace:olhuz_desktop_completo.Components"
+    x:Class="olhuz_desktop_completo.Views.Home.HomeView">
+
+
+    <!-- ========================================================= -->
+    <!-- GRID PRINCIPAL DA PÁGINA -->
+    <!-- ========================================================= -->
+
+    <Grid
+        ColumnDefinitions="1,*"
+        BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#121212}">
+
+        <!-- ===================================================== -->
+        <!-- LINHA DIVISÓRIA -->
+        <!-- ===================================================== -->
+
+        <BoxView
+        Grid.Column="0"
+        BackgroundColor="{AppThemeBinding Light=#E0E0E0, Dark=#2C2C2C}"
+        VerticalOptions="Fill" />
+
+        <!-- ===================================================== -->
+        <!-- CONTEÚDO DA PÁGINA -->
+        <!-- ===================================================== -->
+
+        <Grid
+            Grid.Column="1"
+            RowDefinitions="Auto, *"
+            Padding="30,20"
+            MaximumWidthRequest="1400"
+            HorizontalOptions="Start"
+            VerticalOptions="Start">
+
+            <!-- Cabeçalho -->
+            <components:HeaderView
+                Grid.Row="0"
+                Title="{Binding UserName, StringFormat='Olá, {0}'}"
+                Description="Selecione uma das opções abaixo para começar" />
+
+
+            <!-- Área principal -->
+            <Grid
+                Grid.Row="1"
+                IsVisible="{Binding IsLoading,
+                    Converter={StaticResource InvertedBoolConverter}}">
+
+                <ScrollView>
+
+                    <VerticalStackLayout
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Spacing="20">
+
+
+                        <!-- CARD DE UPLOAD -->
+                        <Border
+                            x:Name="UploadCard"
+                            WidthRequest="800"
+                            HeightRequest="500"
+                            Padding="30"
+                            BackgroundColor="{AppThemeBinding
+                                Light=#F1F7FF,
+                                Dark=#1B2430}"
+                            Stroke="#A8CFFF"
+                            StrokeThickness="1"
+                            StrokeDashArray="6,4"
+                            StrokeShape="RoundRectangle 12">
+
+                            <Border.GestureRecognizers>
+
+                                <!-- Clique para selecionar -->
+                                <TapGestureRecognizer
+                                    Command="{Binding PickFileCommand}" />
+
+                                <!-- Arrastar e soltar -->
+                                <DropGestureRecognizer
+                                    AllowDrop="True"
+                                    Drop="OnFileDropped"
+                                    DragOver="OnDragOver"
+                                    DragLeave="OnDragLeave" />
+
+                            </Border.GestureRecognizers>
+
+
+                            <VerticalStackLayout
+                                VerticalOptions="Center"
+                                HorizontalOptions="Center"
+                                Spacing="14">
+
+
+                                <!-- Ícone -->
+                                <Image
+                                    Source="upload_cloud.png"
+                                    WidthRequest="58"
+                                    HeightRequest="58"
+                                    HorizontalOptions="Center" />
+
+
+                                <!-- Título -->
+                                <Label
+                                    Text="Arraste e solte seu arquivo aqui"
+                                    FontSize="28"
+                                    FontAttributes="Bold"
+                                    CharacterSpacing="0.2"
+                                    TextColor="{StaticResource SixBlue}"
+                                    HorizontalTextAlignment="Center" />
+
+
+                                <!-- Subtítulo -->
+                                <Label
+                                    Text="ou clique para selecionar o arquivo"
+                                    FontSize="20"
+                                    TextColor="#5F6368"
+                                    HorizontalTextAlignment="Center" />
+
+
+                                <!-- Formatos -->
+                                <Label
+                                    Text="JPG, PNG, PDF ou TXT"
+                                    FontSize="18"
+                                    TextColor="#8A8A8A"
+                                    HorizontalTextAlignment="Center" />
+
+                            </VerticalStackLayout>
+
+                        </Border>
+
+
+                        <!-- Texto auxiliar -->
+                        <Label
+                            Text="O Olhuz utilizará inteligência artificial para analisar o conteúdo do arquivo."
+                            FontSize="18"
+                            TextColor="Gray"
+                            HorizontalTextAlignment="Center"
+                            MaximumWidthRequest="700" />
+
+                    </VerticalStackLayout>
+
+                </ScrollView>
+
+            </Grid>
+
+
+            <!-- CARREGAMENTO -->
+            <VerticalStackLayout
+                Grid.Row="1"
+                Spacing="12"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                IsVisible="{Binding IsLoading}">
+
+                <ActivityIndicator
+                    IsRunning="{Binding IsLoading}"
+                    Color="#326FE8"
+                    WidthRequest="45"
+                    HeightRequest="45" />
+
+                <Label
+                    Text="Analisando arquivo com IA..."
+                    FontSize="14"
+                    TextColor="Gray"
+                    HorizontalOptions="Center" />
+
+            </VerticalStackLayout>
+
+        </Grid>
+
+    </Grid>
+
+</ContentPage>

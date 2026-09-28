@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:components="clr-namespace:olhuz_desktop_completo.Components"
+             x:Class="olhuz_desktop_completo.Views.User.ProfileView">
+
+    <!-- ========================================================= -->
+    <!-- GRID PRINCIPAL DA PÁGINA -->
+    <!-- ========================================================= -->
+
+    <Grid
+        ColumnDefinitions="1,*"
+        BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#121212}">
+
+        <!-- ===================================================== -->
+        <!-- LINHA DIVISÓRIA -->
+        <!-- ===================================================== -->
+
+        <BoxView
+            Grid.Column="0"
+            BackgroundColor="{AppThemeBinding Light=#E0E0E0, Dark=#2C2C2C}"
+            VerticalOptions="Fill" />
+
+        <!-- ===================================================== -->
+        <!-- CONTEÚDO DA PÁGINA -->
+        <!-- ===================================================== -->
+
+        <Grid
+            Grid.Column="1"
+            RowDefinitions="2*, 8*"
+            Padding="30,20"
+            MaximumWidthRequest="1400"
+            HorizontalOptions="Start"
+            VerticalOptions="Start">
+
+            <!-- Header / Título da Página -->
+            <components:HeaderView
+                Grid.Row="0"
+                Title="Perfil"
+                Description="Gerencie suas informações pessoais de forma segura" />
+
+            <!-- Indicador de Carregamento -->
+            <VerticalStackLayout Grid.Row="1" VerticalOptions="Center" HorizontalOptions="Center" IsVisible="{Binding IsLoading}">
+                <ActivityIndicator IsRunning="True" Color="#00008B" WidthRequest="50" HeightRequest="50" />
+            </VerticalStackLayout>
+
+            <!-- Conteúdo Principal -->
+            <ScrollView Grid.Row="1" IsVisible="{Binding IsLoading, Converter={StaticResource InvertedBoolConverter}}">
+                <VerticalStackLayout Spacing="20">
+
+                    <!-- INFORMAÇÕES PESSOAIS -->
+
+                    <Border
+                        BackgroundColor="White"
+                        Stroke="#E0E0E0"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 10"
+                        Padding="20"
+                        HorizontalOptions="Fill">
+                        <Grid RowDefinitions="Auto, Auto, Auto"
+                              RowSpacing="20">
+                            <Label Grid.Row="0"
+                                   Text="Informações Pessoais"
+                                   FontSize="30"
+                                   TextColor="#222448" />
+                            
+                            <!-- Campos -->
+                            <Grid Grid.Row="1"
+                                  ColumnDefinitions="*,*"
+                                  ColumnSpacing="14"
+                                  RowDefinitions="Auto,Auto,Auto"
+                                  RowSpacing="14">
+                                
+                                <!-- Nome -->
+                                <components:ProfileField
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Label="Nome Completo"
+                                    Value="{Binding FullName}"
+                                    IconSource="user.png" />
+
+                                <!-- Data de nascimento -->
+                                <components:ProfileField
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Label="Data de Nascimento"
+                                    Value="{Binding BirthDate}"
+                                    IconSource="calendar_birth.png" />
+
+                                <!-- E-mail -->
+                                <components:ProfileField
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Label="E-mail"
+                                    Value="{Binding Email}"
+                                    IconSource="email.png" />
+
+                                <!-- Telefone -->
+                                <components:ProfileField
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Label="Telefone"
+                                    Value="{Binding PhoneNumber}"
+                                    IconSource="phone.png" />
+
+                                <!-- CPF -->
+                                <components:ProfileField
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    Label="CPF"
+                                    Value="{Binding Cpf}"
+                                    IconSource="document.png" />
+
+                            </Grid>
+
+                                <!-- Botão Editar Dados -->
+                            <Button Grid.Row="2"
+                                    Text="Editar Dados" 
+                                    Command="{Binding EditDataCommand}"
+                                    HorizontalOptions="Start"
+                                    FontSize="20"
+                                    CornerRadius="30"
+                                    Padding="60, 15"
+                                    BackgroundColor="#00008B"
+                                    Margin="0,30,0,0"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- AÇÕES DA CONTA -->
+                    
+                    <Border
+                        BackgroundColor="White"
+                        Stroke="#E0E0E0"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 10"
+                        Padding="20"
+                        HorizontalOptions="Fill">
+                        <Grid
+                            RowDefinitions="*, *"
+                            RowSpacing="20">
+                            <Label
+                                    Grid.Row="0"
+                                    Text="Informações da Conta"
+                                    FontSize="30"
+                                    TextColor="#222448" />
+                        
+                            <Grid
+                                Grid.Row="1"
+                                ColumnDefinitions="*,*,*"
+                                ColumnSpacing="20">
+
+
+                                <!-- Alterar Senha -->
+                                <Grid Grid.Row="1" Grid.Column="0" VerticalOptions="Center">
+                                    <HorizontalStackLayout Spacing="12" VerticalOptions="Center">
+                                        <Image
+                                            Source="padlock.png"
+                                            WidthRequest="24"
+                                            HeightRequest="24"
+                                            VerticalOptions="Center"/>
+                                        <VerticalStackLayout Spacing="8" VerticalOptions="Center">
+                                            <Label
+                                                Text="Alterar Senha"
+                                                FontSize="18"
+                                                TextColor="#0067B9"/>
+                                            <Label
+                                                Text="Atualize sua senha de acesso."
+                                                FontSize="16"
+                                                TextColor="Gray"/>
+                                        </VerticalStackLayout>
+                                    </HorizontalStackLayout>
+
+                                    <Button
+                                        Command="{Binding ChangePasswordCommand}"
+                                        BackgroundColor="Transparent"
+                                        BorderColor="Transparent" />
+                                </Grid>
+
+                                <!-- Excluir Conta -->
+                                <Grid Grid.Row="1" Grid.Column="1" VerticalOptions="Center">
+                                    <HorizontalStackLayout Spacing="12" VerticalOptions="Center">
+                                        <Image
+                                            Source="delete_account.png"
+                                            WidthRequest="24"
+                                            HeightRequest="24"
+                                            VerticalOptions="Center"/>
+                                        <VerticalStackLayout Spacing="8" VerticalOptions="Center">
+                                        <Label
+                                            Text="Excluir Conta"
+                                            FontSize="18"
+                                            TextColor="#BD4D4D"/>
+                                        <Label
+                                            Text="Remova sua conta permanentemente."
+                                            FontSize="16"
+                                            TextColor="Gray"/>
+                                    </VerticalStackLayout>
+                                    </HorizontalStackLayout>
+
+                                    <Button
+                                        Command="{Binding DeleteAccountCommand}"
+                                        BackgroundColor="Transparent"
+                                        BorderColor="Transparent" />
+                                </Grid>
+
+
+
+                                <!-- Sair da Conta -->
+                                <Grid Grid.Row="1" Grid.Column="2" VerticalOptions="Center">
+                                    <HorizontalStackLayout Spacing="12" VerticalOptions="Center">
+                                        <Image
+                                            Source="logout.png"
+                                            WidthRequest="24"
+                                            HeightRequest="24"
+                                            VerticalOptions="Center"/>
+                                        <VerticalStackLayout Spacing="8" VerticalOptions="Center">
+                                        <Label
+                                            Text="Sair da Conta"
+                                            FontSize="18"
+                                            TextColor="#FFA500"/>
+                                        <Label
+                                            Text="Desconecte da sua conta."
+                                            FontSize="16"
+                                            TextColor="Gray"/>
+                                        </VerticalStackLayout>
+                                    </HorizontalStackLayout>
+
+                                    <Button
+                                        Command="{Binding LogoutCommand}"
+                                        BackgroundColor="Transparent"
+                                        BorderColor="Transparent" />
+                                </Grid>
+
+                            </Grid>
+                        </Grid>
+                    </Border>
+
+                </VerticalStackLayout>
+            </ScrollView>
+        </Grid>
+    </Grid>
+</ContentPage>
