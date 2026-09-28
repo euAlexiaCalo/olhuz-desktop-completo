@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="olhuz_desktop_completo.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:home="clr-namespace:olhuz_desktop_completo.Views.Home"
+    xmlns:readings="clr-namespace:olhuz_desktop_completo.Views.Readings"
+    xmlns:preferences="clr-namespace:olhuz_desktop_completo.Views.Preferences"
+    xmlns:profile="clr-namespace:olhuz_desktop_completo.Views.User"
+    FlyoutBehavior="Locked">
+
+    <!-- Cabeçalho do Menu Lateral -->
+    <Shell.FlyoutHeader>
+        <Grid Padding="0,20,10,80" ColumnDefinitions="Auto,*" ColumnSpacing="16" VerticalOptions="Center" HorizontalOptions="Center">
+            <Image Grid.Column="0" Source="logo.png" WidthRequest="70" HeightRequest="70" Aspect="AspectFit" VerticalOptions="Center" HorizontalOptions="Center" />
+            <Label Grid.Column="1" Text="Olhuz" FontSize="32" FontAttributes="None" TextColor="Black" VerticalTextAlignment="Center" HorizontalTextAlignment="Start" />
+        </Grid>
+    </Shell.FlyoutHeader>
+
+    <!-- Itens do Menu -->
+    <Shell.ItemTemplate>
+        <DataTemplate>
+            <Grid HeightRequest="60" Padding="16,0" ColumnDefinitions="40,*" ColumnSpacing="12" VerticalOptions="Center">
+                <!-- Ícone com tamanho controlado -->
+                <Image Grid.Column="0" Source="{Binding Icon}" WidthRequest="26" HeightRequest="22" Aspect="AspectFit" VerticalOptions="Center" HorizontalOptions="Center" />
+
+                <!-- Texto com tamanho e cor controlados -->
+                <Label Grid.Column="1" Text="{Binding Title}" FontSize="20" TextColor="#333333" VerticalTextAlignment="Center" />
+
+            </Grid>
+        </DataTemplate>
+    </Shell.ItemTemplate>
+    
+    <!-- Início -->
+    <FlyoutItem
+        Title="Início"
+        Icon="home.png"
+        Route="Home">
+
+        <ShellContent
+            Route="HomeView"
+            ContentTemplate="{DataTemplate home:HomeView}" />
+
+    </FlyoutItem>
+
+    <!-- Leituras -->
+    <FlyoutItem
+        Title="Leituras"
+        Icon="reading_history.png"
+        Route="Readings">
+
+        <ShellContent
+            Route="ReadingHistoryView"
+            ContentTemplate="{DataTemplate readings:ReadingHistoryView}" />
+
+    </FlyoutItem>
+
+    <!-- Configurações -->
+    <FlyoutItem
+        Title="Configurações"
+        Icon="settings.png"
+        Route="Preferences">
+
+        <ShellContent
+            Route="PreferencesView"
+            ContentTemplate="{DataTemplate preferences:PreferencesView}" />
+
+    </FlyoutItem>
+
+    <!-- Perfil -->
+    <FlyoutItem
+        Title="Perfil"
+        Icon="account.png"
+        Route="Profile">
+
+        <ShellContent
+            Route="ProfileView"
+            ContentTemplate="{DataTemplate profile:ProfileView}" />
+
+    </FlyoutItem>
+
+</Shell>
