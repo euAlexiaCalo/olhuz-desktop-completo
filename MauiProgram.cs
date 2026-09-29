@@ -35,7 +35,7 @@ namespace olhuz_desktop_completo
             // Cria o HttpClient utilizando o AuthTokenHandler
             builder.Services.AddHttpClient(string.Empty, client =>
             {
-                client.BaseAddress = new Uri("https://localhost:7250/");
+                client.BaseAddress = new Uri("https://olhuz-api.onrender.com/");
             })
             .AddHttpMessageHandler<AuthTokenHandler>();
 
